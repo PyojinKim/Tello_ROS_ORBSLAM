@@ -1,18 +1,18 @@
 # ORB-SLAM2 on ROS with DJI Tello
 This repository provides an ORB-SLAM2 example on Robot Operating System (ROS) with DJI Tello drone.
 DJI Tello sends video stream to the ORB-SLAM2, and it publishes 3-DoF position and 3-DoF orientation of the DJI Tello.
-GUI will allow you to control the DJI Tello and command it to move along the x, y, z, roll, pitch, and yaw directions.
+Control panel (GUI) will allow you to control the DJI Tello and command it to move along the x, y, z, roll, pitch, and yaw directions.
 You can also find a joystick/keyboard to control the DJI Tello instead of using your DJI Tello app.
 
 ![Image of GUI](https://raw.githubusercontent.com/tau-adl/Tello_ROS_ORBSLAM/master/Images/tello_ui.png)
 
 
 # 1. Installation Guide
-* (1) Environments: Ubuntu 18.04.5 LTS (64-bit) + ROS Melodic + MSI GS60 (GeForce GTX 970M)
+(1) Tested Environments: Ubuntu 18.04.5 LTS (64-bit) + ROS Melodic + MSI GS60 (GeForce GTX 970M)
 
-* (2) Robot Operating System (ROS) first by following this page: http://wiki.ros.org/melodic/Installation/Ubuntu
+(2) Install Robot Operating System (ROS) first following this page: http://wiki.ros.org/melodic/Installation/Ubuntu
 
-* (3) Eigen3, ffmpeg, and other packages
+(3) Eigen3, ffmpeg, and other trivial packages
 ```
 sudo apt-get install libeigen3-dev ffmpeg
 sudo apt-get install python-catkin-tools
@@ -21,7 +21,7 @@ sudo apt-get install python-imaging-tk
 sudo apt-get install python-pip
 ```
 
-* (4) Pangolin for ORB-SLAM2 visualization: https://github.com/stevenlovegrove/Pangolin
+(4) Pangolin for ORB-SLAM2 visualization: https://github.com/stevenlovegrove/Pangolin
 ```
 git clone https://github.com/stevenlovegrove/Pangolin.git
 sudo apt-get install libgl1-mesa-dev libglew-dev libxkbcommon-dev
@@ -32,9 +32,9 @@ cmake ..
 cmake --build .
 ```
 
-* (5) CMake latest version at least > 3.14 for H264 Decoder: [link](https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line)
+(5) CMake latest version at least > 3.14 for H264 Decoder: [link1](https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line)
 
-* (6) H264 Decoder for DJI Tello video stream: https://github.com/DaWelter/h264decoder
+(6) H264 Decoder for DJI Tello video stream: https://github.com/DaWelter/h264decoder
 ```
 git clone https://github.com/DaWelter/h264decoder.git
 sudo apt-get install libswscale-dev libavcodec-dev libavutil-dev
@@ -47,7 +47,7 @@ cmake ..
 make
 ```
 
-* (7) TelloPy and H264 Decoder
+(7) TelloPy and H264 Decoder from this repository
 ```
 git clone https://github.com/PyojinKim/Tello_ROS_ORBSLAM.git
 cd ~/Documents/Tello_ROS_ORBSLAM/TelloPy
@@ -58,7 +58,7 @@ sudo apt-get install libswscale-dev libavcodec-dev libavutil-dev
 sudo cp ~/Documents/Tello_ROS_ORBSLAM/h264decoder/Linux/libh264decoder.so /usr/local/lib/python2.7/dist-packages
 ```
 
-* (8) DJI Tello catkin workspace
+(8) DJI Tello catkin workspace from this repository
 ```
 cd ~/Documents/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/
 rosdep update
@@ -87,6 +87,8 @@ roslaunch flock_driver orbslam2_with_cloud_map.launch
 
 
 # 3. DJI Tello Control Panel (GUI)
+
+
 
 
 
