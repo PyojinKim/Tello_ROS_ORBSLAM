@@ -5,7 +5,20 @@ extern "C" {
 #include <libswscale/swscale.h>
 }
 
+#ifndef PIX_FMT_RGB24
+#define PIX_FMT_RGB24 AV_PIX_FMT_RGB24
+#endif
+
+#ifndef CODEC_CAP_TRUNCATED
+#define CODEC_CAP_TRUNCATED AV_CODEC_CAP_TRUNCATED
+#endif
+
+#ifndef CODEC_FLAG_TRUNCATED
+#define CODEC_FLAG_TRUNCATED AV_CODEC_FLAG_TRUNCATED
+#endif
+
 #include "h264decoder.hpp"
+#include <utility>
 
 typedef unsigned char ubyte;
 
@@ -113,13 +126,13 @@ const AVFrame& ConverterRGB24::convert(const AVFrame &frame, ubyte* out_rgb)
   
   context = sws_getCachedContext(context, 
                                  w, h, (AVPixelFormat)pix_fmt, 
-                                 w, h, AV_PIX_FMT_RGB24, SWS_BILINEAR, 
+                                 w, h, PIX_FMT_RGB24, SWS_BILINEAR, 
                                  nullptr, nullptr, nullptr);
   if (!context)
     throw H264DecodeFailure("cannot allocate context");
   
   // Setup framergb with out_rgb as external buffer. Also say that we want RGB24 output.
-  avpicture_fill((AVPicture*)framergb, out_rgb, AV_PIX_FMT_RGB24, w, h);
+  avpicture_fill((AVPicture*)framergb, out_rgb, PIX_FMT_RGB24, w, h);
   // Do the conversion.
   sws_scale(context, frame.data, frame.linesize, 0, h,
             framergb->data, framergb->linesize);
@@ -138,7 +151,7 @@ fill the buffer we should also use it to determine the required size.
 */
 int ConverterRGB24::predict_size(int w, int h)
 {
-  return avpicture_fill((AVPicture*)framergb, nullptr, AV_PIX_FMT_RGB24, w, h);  
+  return avpicture_fill((AVPicture*)framergb, nullptr, PIX_FMT_RGB24, w, h);  
 }
 
 
