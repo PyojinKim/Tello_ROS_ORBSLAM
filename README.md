@@ -1,4 +1,4 @@
-# ORB-SLAM2 on Robot Operating System (ROS) with DJI Tello
+# ORB-SLAM2 on ROS with DJI Tello
 This repository provides an ORB-SLAM2 example on Robot Operating System (ROS) with DJI Tello drone.
 DJI Tello sends video stream to the ORB-SLAM2, and it publishes 3-DoF position and 3-DoF orientation of the DJI Tello.
 GUI will allow you to control the DJI Tello and command it to move along the x, y, z, roll, pitch, and yaw directions.
@@ -7,125 +7,94 @@ You can also find a joystick/keyboard to control the DJI Tello instead of using 
 ![Image of GUI](https://raw.githubusercontent.com/tau-adl/Tello_ROS_ORBSLAM/master/Images/tello_ui.png)
 
 
-# 1. Installation
+# 1. Installation Guide
 
 * 1) Environments: Ubuntu 18.04.5 LTS (64-bit) + ROS Melodic + MSI GS60 (GeForce GTX 970M)
 
-* 2) Install ROS following this page: http://wiki.ros.org/melodic/Installation/Ubuntu
+* 2) Robot Operating System (ROS) first by following this page: http://wiki.ros.org/melodic/Installation/Ubuntu
+
+* 3) Install some packages.
 ```
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-get update
+sudo apt-get install libeigen3-dev ffmpeg
 sudo apt-get install python-catkin-tools
-```
-
-
-
-
-
-
-
-* Or, Use the TUMRGBDdataset/rgbd_dataset_freiburg3_structure_notexture_far/ included in this package.
-
-* Define 'datasetPath' correctly in your directory at setupParams_TUM_RGBD.m file.
-
-* Run LPIC_core/main_script_TUM_RGBD.m, which will give you the 3-DoF camera orientation tracking result. Enjoy! :)
-
-
-
-
-
-
-
-
-
-### Eigen3
-Required by g2o. Download and install instructions can be found here. Otherwise Eigen can be installed as a binary with:
-```
-sudo apt install libeigen3-dev
-```
-### ffmpeg
-```
-sudo apt install ffmpeg
-```
-### Python catkin tools (probably already installed)
-```
-sudo apt-get install python-catkin-tools
-```
-### Joystick drivers
-Tested it only on melodic.
-```
-sudo apt install ros-melodic-joystick-drivers
-```
-### Python PIL
-```
+sudo apt-get install ros-melodic-joystick-drivers
 sudo apt-get install python-imaging-tk
+sudo apt-get install python-pip
 ```
-## Github based Prerequisites
-### Pangolin (used in orbslam2)
-Based on https://github.com/stevenlovegrove/Pangolin
+
+* 4) Pangolin for ORB-SLAM2 visualization: https://github.com/stevenlovegrove/Pangolin
 ```
-cd ~/ROS/
 git clone https://github.com/stevenlovegrove/Pangolin.git
-sudo apt install libgl1-mesa-dev
-sudo apt install libglew-dev
-sudo apt-get install libxkbcommon-dev
+sudo apt-get install libgl1-mesa-dev libglew-dev libxkbcommon-dev
 cd Pangolin
 mkdir build
 cd build
 cmake ..
-cmake --build
+cmake --build .
 ```
 
-### h264decoder
-Baed on https://github.com/DaWelter/h264decoder
+* 5) CMake latest version at least > 3.14 for H264 Decoder: https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line
+
+* 6) H264 Decoder for DJI Tello video stream: https://github.com/DaWelter/h264decoder
 ```
-cd ~/ROS/
 git clone https://github.com/DaWelter/h264decoder.git
-```
-Inside h264decoder.cpp replace PIX_FMT_RGB24 with AV_PIX_FMT_RGB24
-```
+sudo apt install libswscale-dev libavcodec-dev libavutil-dev
+cd h264decoder
+pip install .
+
 mkdir build
 cd build
 cmake ..
 make
 ```
+
+
+
+
+
 now copy it to python path
 ```
 sudo cp ~/ROS/h264decoder/libh264decoder.so /usr/local/lib/python2.7/dist-packages
 ```
-# Installing Our Repository
-## Cloning Our repo from github
-```
-cd ~
-mkdir ROS
-cd ROS
-git clone https://github.com/tau-adl/Tello_ROS_ORBSLAM.git
-```
+
+
+
+
+
+
+
+
+
+
 ## Installing our version of TelloPy
 based on https://github.com/dji-sdk/Tello-Python and https://github.com/hanyazou/TelloPy
 ```
-cd ~/ROS/Tello_ROS_ORBSLAM/TelloPy
+cd ~/Documents/Tello_ROS_ORBSLAM/TelloPy
 sudo python setup.py install
 ```
+
+
 ## Installing dependencies for ROS
 ```
-cd ~/ROS/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/
+cd ~/Documents/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/
 sudo rosdep init
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-# Installing orbslam2
-based on https://github.com/appliedAI-Initiative/orb_slam_2_ros and https://github.com/rayvburn/ORB-SLAM2_ROS
-First - if using Melodic version of ROS, change the ~/ROS/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/src/orb_slam_2_ros/CMakeLists.txt
-To the CMakeLists_melodic.txt
+
 ## Build the code:
 ```
-cd ~/ROS/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/
+cd ~/Documents/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/
 catkin init
 catkin clean
-catkin build
+catkin build -j2
 ```
+
+
+
+
+
 If it doesn’t work, make sure you changed the makefile to the wanted version of ROS
 ## Add the enviroment setup to bashrc
 ```
