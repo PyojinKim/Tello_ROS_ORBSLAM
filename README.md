@@ -51,11 +51,7 @@ make
 
 
 
-
-now copy it to python path
-```
-sudo cp ~/ROS/h264decoder/libh264decoder.so /usr/local/lib/python2.7/dist-packages
-```
+sudo cp ~/Documents/h264decoder/libh264decoder.so /usr/local/lib/python2.7/dist-packages
 
 
 
@@ -77,30 +73,25 @@ sudo python setup.py install
 ## Installing dependencies for ROS
 ```
 cd ~/Documents/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/
-sudo rosdep init
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
-```
 
-
-## Build the code:
-```
-cd ~/Documents/Tello_ROS_ORBSLAM/ROS/tello_catkin_ws/
 catkin init
 catkin clean
-catkin build -j2
-```
+catkin build --mem-limit 70% -j1
 
-
-
-
-
-If it doesn’t work, make sure you changed the makefile to the wanted version of ROS
-## Add the enviroment setup to bashrc
-```
 echo "source $PWD/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
+
+
+
+
+
+
+
+
+
 # Installing ccm_slam
 based on https://github.com/VIS4ROB-lab/ccm_slam
 ## Compile DBoW2:
@@ -139,11 +130,6 @@ If Gives error -  ROS distro neither indigo nor kinetic - change the makefile, u
 echo "source $PWD/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
-
-## Notes
-### Flock
-we have used code from https://github.com/clydemcqueen/flock
-
 
 
 
