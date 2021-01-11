@@ -79,44 +79,25 @@ source ~/.bashrc
 * Run roslaunch like below command in the terminal. Enjoy! :)
 ```
 roslaunch flock_driver orbslam2_with_cloud_map.launch
+
+rostopic list
+rosrun rqt_graph rqt_graph
 ```
-
-
-
-
 
 
 # 3. DJI Tello Control Panel (GUI)
 
-![Overview](https://github.com/PyojinKim/Tello_ROS_ORBSLAM/blob/master/images/overview.png)
+![Overview](https://github.com/PyojinKim/Tello_ROS_ORBSLAM/blob/master/images/tello_control_GUI.png)
 
 * `Calibrate Z!`: will make the DJI Tello elevate about 0.5 meters and then descend 0.5 meters.
 With this movement, the internal height sensor of the DJI Tello will be used together with the height which is measured by the ORB-SLAM2.
 The controller will compute and use this scale factor from the SLAM coordinates to the real-world coordinates.
 
+* `Publish Command!`: will send the desired X,Y,Z position and yaw angle to the controller, and the DJI will navigate to the desired coordinates.
+Note that the `Toggle Slam Control!` button should be pressed before to activate the `Publish Command!` button for the safety issue.
 
 
-
-
-
-##### Publish Command!
-Pushing this button will send the coordinates in the boxes (x, y, z, yaw) to the control, and the control will navigate the tello to those coordinates.
-###### note that the control will control the Tello only if the "Toggle Slam Control!" Button is pressed!
-
-
-
-
-
-
-##### Toggle Slam Control!
-This is a protection button. Pressing this button will allow the control to take over the Tello's speed control.
-
-#### Manual Control Section
-In this section we can manually control the speeds of the Tello in all axes.
-Just insert the wanted speed (0-1) in each axis and press Manual Control Set!
-To stop press the Manual Control Clear! button.
-
-
+Please refer to this original github link for more detailed information and how to use each button: https://github.com/tau-adl/Tello_ROS_ORBSLAM#tello-ui-user-interface
 
 
 # 4. References
