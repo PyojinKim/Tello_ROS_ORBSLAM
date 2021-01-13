@@ -89,6 +89,9 @@ rosrun rqt_graph rqt_graph
 
 ![Overview](https://github.com/PyojinKim/Tello_ROS_ORBSLAM/blob/master/images/tello_control_GUI.png)
 
+* `Takeoff!`: will make the DJI tello take off, elevating about 0.7 meters vertically.
+If you click the `Land!` button, it will land and descend to the ground smoothly.
+
 * `Calibrate Z!`: will make the DJI Tello elevate about 0.5 meters and then descend 0.5 meters.
 With this movement, the internal height sensor of the DJI Tello will be used together with the height which is measured by the ORB-SLAM2.
 The controller will compute and use this scale factor from the SLAM coordinates to the real-world coordinates.
@@ -101,3 +104,10 @@ Please refer to this original github link for more detailed information and how 
 
 
 # 4. References
+(1) Original Tello_ROS_ORBSLAM source code: https://github.com/tau-adl/Tello_ROS_ORBSLAM
+
+(2) Flock, a ROS driver for DJI Tello: https://github.com/clydemcqueen/flock
+
+(3) ORB-SLAM2 ROS implementation: http://wiki.ros.org/orb_slam2_ros
+
+(4) tello_driver, another ROS driver for DJI Tello: http://wiki.ros.org/tello_driver
